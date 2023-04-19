@@ -1,22 +1,22 @@
 import {useEffect, useState} from "react";
-import {MainBookCategory} from "../models";
+import {IndexData, MainBookCategory} from "../models";
 
 const MAIN_ITEMS: MainBookCategory[] = [
-    MainBookCategory.Chumash, MainBookCategory.Mishnayot,
-    MainBookCategory.Bereishit
+    MainBookCategory.Talmud_Sotah, MainBookCategory.Mishnah_Berakhot,
+    MainBookCategory.Sefer_Bereishit
 ]
-export interface IndexData {
+export interface IndexDataCollection {
     id: MainBookCategory
-    data: string
+    data: IndexData
 }
 
 const useIndexCall = () => {
-    const [data, setData] = useState<IndexData[]>()
+    const [data, setData] = useState<IndexDataCollection[]>()
     const [loading, setLoading] = useState<boolean>(true)
 
     const fetchAndSetData = () => {
         setLoading(true)
-        const dataObj: IndexData[] = []
+        const dataObj: IndexDataCollection[] = []
         MAIN_ITEMS.forEach(async (item, index) => {
             try {
                 const res = await fetch(`https://www.sefaria.org/api/index/${item}`);
@@ -41,7 +41,6 @@ const useIndexCall = () => {
     }
 
     useEffect(() => {
-        console.log(`DOVID >> useEffect`)
         fetchAndSetData()
         return () => setLoading(true)
     }, []);
