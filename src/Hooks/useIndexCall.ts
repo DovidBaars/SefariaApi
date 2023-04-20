@@ -11,7 +11,7 @@ export interface IndexDataCollection {
 }
 
 const useIndexCall = () => {
-    const [data, setData] = useState<IndexDataCollection[]>()
+    const [data, setData] = useState<IndexDataCollection[]>([])
     const [loading, setLoading] = useState<boolean>(true)
 
     const fetchAndSetData = () => {

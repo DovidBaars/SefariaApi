@@ -5,13 +5,13 @@ import {
   StyleSheet,
 } from 'react-native';
 import Main from "./src/Components/Main";
+import Header from "./src/Components/Header";
+import colors from "./src/colors";
 
 function App(): JSX.Element {
   return (
     <SafeAreaView>
-      <StatusBar
-        barStyle={'dark-content'}
-      />
+      <Header/>
       <Main/>
     </SafeAreaView>
   );

@@ -1,18 +1,21 @@
 import React from "react";
-import {FlatList, View} from "react-native";
-import useIndexCall from "../Hooks/useIndexCall";
+import {StyleSheet, View} from "react-native";
 import BookText from "./BookText";
+import colors from "../colors";
 
 const Main = () => {
-    const {data, loading} = useIndexCall()
     return (
-        <View>
-            {
-                !loading && (
-                    <FlatList data={data} keyExtractor={({id}) => id} renderItem={BookText}/>
-                )
-            }
+        <View style={styles.container}>
+           <BookText/>
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: colors.alternative,
+        height: '100%',
+    },
+})
+
 export default Main
