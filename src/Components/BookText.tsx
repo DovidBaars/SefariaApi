@@ -1,15 +1,19 @@
-import {FlatList, ListRenderItemInfo, StyleSheet, Text, View} from "react-native";
+import {FlatList, ListRenderItemInfo, StyleSheet} from "react-native";
 import React from "react";
-import useIndexCall, {IndexDataCollection} from "../Hooks/useIndexCall";
-import colors from "../colors";
+import useFetchList from "../Hooks/useFetchList";
 import Separator from "./Separator";
+import {FetchListCollection, IndexDataCollection, MainBookCategory,} from "../models";
+import {INDEX_URL} from "../constants";
+import SectionLengthRenderItem from "./SectionLengthRenderItem";
 
-const BookText = () => {
-    const {data, loading} = useIndexCall()
-    const line = ({item: {id, data}}: ListRenderItemInfo<IndexDataCollection>) => {
-        const text = `${id} - ${data?.schema?.sectionNames[0]}s : ${data?.schema?.lengths[0]}`
-        return <Text style={styles.lineContainer}>{text}</Text>
-    }
+interface IProps {
+    books: MainBookCategory[]
+    renderItem: (bookData: ListRenderItemInfo<IndexDataCollection>) => JSX.Element
+}
+
+const BookText = ({books, renderItem}: IProps) => {
+    const fetchCollList: FetchListCollection[] = books.map((id) => ({id, url: `${INDEX_URL}${id}`}))
+    const {data, loading} = useFetchList(fetchCollList)
 
    return !loading ? (
          <FlatList
@@ -17,7 +21,7 @@ const BookText = () => {
              style={styles.container}
              data={data}
              keyExtractor={({id}) => id}
-             renderItem={line}
+             renderItem={renderItem}
          />
     ) : null
 }
@@ -25,13 +29,7 @@ const BookText = () => {
 const styles = StyleSheet.create({
     container: {
         padding: 10,
-    },
-    lineContainer: {
-        backgroundColor: colors.header,
-        padding: 10,
-        color: colors.text,
-        fontSize: 20,
-    },
+    }
 })
 
 export default BookText

@@ -1,9 +1,5 @@
 import {StyleSheet, View} from "react-native";
-const Separator = () => {
-    return (
-            <View style={styles.separator}/>
-    )
-}
+const Separator = () => <View style={styles.separator}/>
 
 const styles = StyleSheet.create({
     separator: {

@@ -18,3 +18,15 @@ export interface IndexData {
     }
 }
 
+interface MainBookId {
+    id: MainBookCategory
+}
+
+export interface IndexDataCollection extends MainBookId {
+    data: IndexData
+}
+
+export interface FetchListCollection extends MainBookId {
+    url: string
+}
+
